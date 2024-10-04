@@ -7,12 +7,27 @@
 
 <script>
 import BasCard from './components/BasCard.vue';
+import { stockService } from './services/stockService';
 
 export default {
   name: 'App',
   components: {
-    BasCard
-  }
+    BasCard,
+  },
+  data() {
+    return {
+      stockData: [],
+    }
+  },
+  async created() {
+    try {
+      this.stockData = await stockService();
+      console.log('loaded', this.stockData);
+      
+    } catch (error) {
+      console.error('Fehler beim Laden der Aktien-Daten:', error);
+    }
+  },
 }
 
 </script>
